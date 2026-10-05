@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online Consultation - Online Health Consultation</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- STOMP WebSocket Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.1.1/bundles/stomp.umd.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            HealthCare
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="docto-dashboard.html">Dashboard</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- Consultation Section -->
+
+    <section class="consultation-section">
+
+        <div class="consultation-box">
+
+            <h1>Online Consultation</h1>
+
+            <p class="consultation-description">
+                Start an online consultation with your patient.
+            </p>
+
+
+            <!-- Doctor Information -->
+
+            <div class="consultation-info">
+
+                <p>
+                    <strong>Doctor:</strong>
+                    <span id="consultDoctor">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Specialization:</strong>
+                    <span id="consultSpecialization">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Patient:</strong>
+                    <span id="consultPatient">Loading...</span>
+                </p>
+
+            </div>
+
+
+            <!-- Consultation Area -->
+
+            <div class="consultation-area">
+
+
+                <!-- Video Consultation -->
+
+                <div class="video-box">
+
+                    <h2>Video Consultation</h2>
+
+
+                    <!-- Local Video -->
+
+                    <div>
+                        <p>
+                            <strong>My Video</strong>
+                        </p>
+
+                        <video id="localVideo" autoplay muted playsinline
+                            style="width: 100%; max-width: 450px; border-radius: 10px; background: #000;">
+                        </video>
+                    </div>
+
+
+                    <!-- Remote Video -->
+
+                    <div>
+                        <p>
+                            <strong>Patient / Doctor Video</strong>
+                        </p>
+
+                        <video id="remoteVideo" autoplay playsinline
+                            style="width: 100%; max-width: 450px; border-radius: 10px; background: #000;">
+                        </video>
+                    </div>
+
+
+                    <br>
+
+
+                    <button class="start-btn" id="startVideoCall">
+                        Start Video Call
+                    </button>
+
+
+                    <p id="callStatus">
+                        Waiting to start consultation...
+                    </p>
+
+                </div>
+
+
+                <!-- Chat -->
+
+                <div class="chat-box">
+
+                    <h2>Chat</h2>
+
+                    <div class="chat-messages" id="chatMessages">
+                    </div>
+
+                    <p>
+                        Consultation chat will appear here.
+                    </p>
+
+                </div>
+
+
+                <div class="chat-input">
+
+                    <input type="text" id="chatInput" placeholder="Type your message">
+
+                    <button id="sendMessage">
+                        Send
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 Online Health Consultation
+        </p>
+
+    </footer>
+
+
+    <script src="js/script.js"></script>
+
+
+    <!-- WebRTC Video Call -->
+
+    <script>
+
+        let localStream = null;
+        let peerConnection = null;
+        let stompClient = null;
+
+        const localVideo =
+            document.getElementById("localVideo");
+
+        const remoteVideo =
+            document.getElementById("remoteVideo");
+
+        const startVideoCall =
+            document.getElementById("startVideoCall");
+
+        const callStatus =
+            document.getElementById("callStatus");
+
+
+        // Unique ID for this browser
+
+        const userId =
+            Math.random().toString(36).substring(2, 12);
+
+
+        let remoteUserId = null;
+
+        let pendingCandidates = [];
+
+
+        // STUN server
+
+        const configuration = {
+
+            iceServers: [
+                {
+                    urls: "stun:stun.l.google.com:19302"
+                }
+            ]
+
+        };
+
+
+        // Connect WebSocket
+
+        function connectWebSocket() {
+
+            stompClient = new StompJs.Client({
+
+                brokerURL: "ws://localhost:8080/ws",
+
+                reconnectDelay: 5000,
+
+                debug: function (message) {
+                    console.log("WebSocket:", message);
+                }
+
+            });
+
+
+            stompClient.onConnect = function () {
+
+                console.log("WebSocket connected");
+
+                callStatus.innerText =
+                    "Connected. Waiting for another participant...";
+
+
+                stompClient.subscribe(
+                    "/topic/signal",
+                    function (message) {
+
+                        const data =
+                            JSON.parse(message.body);
+
+                        handleSignal(data);
+
+                    }
+                );
+
+
+                // Join consultation room
+
+                stompClient.publish({
+
+                    destination: "/app/signal",
+
+                    body: JSON.stringify({
+
+                        type: "join",
+
+                        sender: userId
+
+                    })
+
+                });
+
+            };
+
+
+            stompClient.onStompError = function (frame) {
+
+                console.error(
+                    "WebSocket error:",
+                    frame
+                );
+
+                callStatus.innerText =
+                    "WebSocket connection error.";
+
+            };
+
+
+            stompClient.activate();
+
+        }
+
+
+        // Start local camera and microphone
+
+        async function startLocalMedia() {
+
+            try {
+
+                localStream =
+                    await navigator.mediaDevices.getUserMedia({
+
+                        video: true,
+                        audio: true
+
+                    });
+
+
+                localVideo.srcObject =
+                    localStream;
+
+
+                callStatus.innerText =
+                    "Camera and microphone started.";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Camera error:",
+                    error
+                );
+
+                callStatus.innerText =
+                    "Camera or microphone permission denied.";
+
+            }
+
+        }
+
+
+        // Create peer connection
+
+        function createPeerConnection() {
+
+            peerConnection =
+                new RTCPeerConnection(configuration);
+
+
+            // Add local tracks
+
+            if (localStream) {
+
+                localStream
+                    .getTracks()
+                    .forEach(function (track) {
+
+                        peerConnection.addTrack(
+                            track,
+                            localStream
+                        );
+
+                    });
+
+            }
+
+
+            // Receive remote video
+
+            peerConnection.ontrack =
+                function (event) {
+
+                    console.log(
+                        "Remote stream received"
+                    );
+
+                    remoteVideo.srcObject =
+                        event.streams[0];
+
+                    callStatus.innerText =
+                        "Video call connected.";
+
+                };
+
+
+            // ICE candidate
+
+            peerConnection.onicecandidate =
+                function (event) {
+
+                    if (event.candidate) {
+
+                        sendSignal({
+
+                            type: "candidate",
+
+                            sender: userId,
+
+                            receiver: remoteUserId,
+
+                            candidate: event.candidate
+
+                        });
+
+                    }
+
+                };
+
+
+            peerConnection.onconnectionstatechange =
+                function () {
+
+                    console.log(
+                        "Connection state:",
+                        peerConnection.connectionState
+                    );
+
+
+                    if (
+                        peerConnection.connectionState ===
+                        "connected"
+                    ) {
+
+                        callStatus.innerText =
+                            "Video call connected successfully.";
+
+                    }
+
+
+                    if (
+                        peerConnection.connectionState ===
+                        "disconnected"
+                    ) {
+
+                        callStatus.innerText =
+                            "Video call disconnected.";
+
+                    }
+
+                };
+
+        }
+
+
+        // Send WebSocket signal
+
+        function sendSignal(data) {
+
+            if (
+                stompClient &&
+                stompClient.connected
+            ) {
+
+                stompClient.publish({
+
+                    destination: "/app/signal",
+
+                    body: JSON.stringify(data)
+
+                });
+
+            }
+
+        }
+
+
+        // Handle WebSocket signal
+
+        async function handleSignal(data) {
+
+            // Ignore own messages
+
+            if (data.sender === userId) {
+                return;
+            }
+
+
+            // JOIN
+
+            if (data.type === "join") {
+
+                remoteUserId =
+                    data.sender;
+
+
+                if (!peerConnection) {
+
+                    createPeerConnection();
+
+                }
+
+
+                /*
+                 * Only one participant creates
+                 * the offer.
+                 */
+
+                if (userId < remoteUserId) {
+
+                    callStatus.innerText =
+                        "Connecting to participant...";
+
+
+                    const offer =
+                        await peerConnection.createOffer();
+
+
+                    await peerConnection.setLocalDescription(
+                        offer
+                    );
+
+
+                    sendSignal({
+
+                        type: "offer",
+
+                        sender: userId,
+
+                        receiver: remoteUserId,
+
+                        offer: offer
+
+                    });
+
+                }
+
+            }
+
+
+            // OFFER
+
+            if (
+                data.type === "offer" &&
+                data.receiver === userId
+            ) {
+
+                remoteUserId =
+                    data.sender;
+
+
+                if (!peerConnection) {
+
+                    createPeerConnection();
+
+                }
+
+
+                await peerConnection.setRemoteDescription(
+                    new RTCSessionDescription(data.offer)
+                );
+
+
+                const answer =
+                    await peerConnection.createAnswer();
+
+
+                await peerConnection.setLocalDescription(
+                    answer
+                );
+
+
+                sendSignal({
+
+                    type: "answer",
+
+                    sender: userId,
+
+                    receiver: remoteUserId,
+
+                    answer: answer
+
+                });
+
+
+                // Add pending ICE candidates
+
+                for (
+                    const candidate
+                    of pendingCandidates
+                ) {
+
+                    await peerConnection.addIceCandidate(
+                        candidate
+                    );
+
+                }
+
+                pendingCandidates = [];
+
+            }
+
+
+            // ANSWER
+
+            if (
+                data.type === "answer" &&
+                data.receiver === userId
+            ) {
+
+                await peerConnection.setRemoteDescription(
+                    new RTCSessionDescription(data.answer)
+                );
+
+
+                for (
+                    const candidate
+                    of pendingCandidates
+                ) {
+
+                    await peerConnection.addIceCandidate(
+                        candidate
+                    );
+
+                }
+
+                pendingCandidates = [];
+
+            }
+
+
+            // ICE CANDIDATE
+
+            if (
+                data.type === "candidate" &&
+                data.receiver === userId
+            ) {
+
+                const candidate =
+                    new RTCIceCandidate(
+                        data.candidate
+                    );
+
+
+                if (
+                    peerConnection &&
+                    peerConnection.remoteDescription
+                ) {
+
+                    await peerConnection.addIceCandidate(
+                        candidate
+                    );
+
+                }
+
+                else {
+
+                    pendingCandidates.push(
+                        candidate
+                    );
+
+                }
+
+            }
+
+        }
+
+
+        // Start Video Call button
+
+        startVideoCall.addEventListener(
+            "click",
+            async function () {
+
+                startVideoCall.disabled =
+                    true;
+
+                startVideoCall.innerText =
+                    "Starting...";
+
+
+                await startLocalMedia();
+
+
+                if (!stompClient) {
+
+                    connectWebSocket();
+
+                }
+
+
+                startVideoCall.innerText =
+                    "Video Call Started";
+
+            }
+        );
+
+
+    </script>
+
+</body>
+
+</html>

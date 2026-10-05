@@ -1,0 +1,796 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f8fc;
+    color: #222;
+}
+
+
+/* Navbar */
+
+.navbar {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8%;
+    background-color: white;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #222;
+}
+
+
+/* Hero */
+
+.hero {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    padding: 60px 8%;
+    background-color: #eaf3ff;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.hero h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 13px 25px;
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+
+/* Services */
+
+.services {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 35px;
+    margin-bottom: 35px;
+}
+
+.service-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.service-card {
+    width: 30%;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.service-card h3 {
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    line-height: 1.5;
+}
+
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #111827;
+    color: white;
+}
+
+/* Doctors Page */
+
+.doctors-section {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.doctors-section h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.doctor-description {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.doctor-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.doctor-card {
+    width: 300px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-image {
+    font-size: 70px;
+    margin-bottom: 15px;
+}
+
+.doctor-card h2 {
+    margin-bottom: 10px;
+}
+
+.doctor-card h3 {
+    margin-bottom: 15px;
+}
+
+.doctor-card p {
+    margin-bottom: 10px;
+}
+
+.doctor-card .btn {
+    margin-top: 15px;
+}
+
+/* Login Page */
+
+.login-section {
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.login-box {
+    width: 400px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login-box > p {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.login-box input {
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.login-box button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: #1d4ed8;
+}
+
+.register-link {
+    margin-top: 25px;
+}
+
+.register-link a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+/* Register Page */
+
+.register-section {
+    min-height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.register-box {
+    width: 450px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.register-box h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.register-box > p {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.register-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-box label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.register-box input,
+.register-box select {
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.register-box button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.register-box button:hover {
+    background-color: #1d4ed8;
+}
+
+.login-link {
+    margin-top: 25px;
+}
+
+.login-link a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+
+/* Patient Dashboard */
+
+.dashboard-section {
+    min-height: 650px;
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.dashboard-section h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.dashboard-welcome {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.dashboard-card {
+    width: 280px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card h2 {
+    margin-bottom: 15px;
+}
+
+.dashboard-card p {
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.dashboard-card .btn {
+    margin-top: 10px;
+}
+
+/* Doctor Dashboard */
+
+.doctor-dashboard-section {
+    min-height: 650px;
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.doctor-dashboard-section h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.doctor-dashboard-welcome {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.doctor-dashboard-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.doctor-dashboard-card {
+    width: 280px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-dashboard-card h2 {
+    margin-bottom: 15px;
+}
+
+.doctor-dashboard-card p {
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.doctor-dashboard-card .btn {
+    margin-top: 10px;
+}
+
+
+/* Appointment Page */
+
+.appointment-section {
+    min-height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.appointment-box {
+    width: 500px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-box h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.appointment-box > p {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.appointment-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.appointment-box label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.appointment-box input,
+.appointment-box select,
+.appointment-box textarea {
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+}
+
+.appointment-box textarea {
+    resize: vertical;
+}
+
+.appointment-box button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.appointment-box button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Patient Profile */
+
+.profile-section {
+    min-height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.profile-box {
+    width: 500px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.profile-box h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.profile-description {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-info {
+    margin-bottom: 30px;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-box .btn {
+    display: block;
+    width: fit-content;
+    margin: auto;
+}
+
+/* Patient Appointments */
+
+.appointments-section {
+    min-height: 650px;
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.appointments-section h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.appointments-description {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.appointments-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.appointment-card {
+    width: 350px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-card h2 {
+    margin-bottom: 20px;
+}
+
+.appointment-card p {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.status-confirmed {
+    font-weight: bold;
+}
+
+.status-pending {
+    font-weight: bold;
+}
+
+/* Doctor Profile */
+
+.doctor-profile-section {
+    min-height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.doctor-profile-box {
+    width: 500px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-profile-image {
+    font-size: 80px;
+    margin-bottom: 15px;
+}
+
+.doctor-profile-box h1 {
+    margin-bottom: 10px;
+}
+
+.doctor-profile-box h2 {
+    margin-bottom: 25px;
+}
+
+.doctor-profile-info {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.doctor-profile-info p {
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+
+/* Patient Requests */
+
+.requests-section {
+    min-height: 650px;
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.requests-section h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.requests-description {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.requests-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.request-card {
+    width: 350px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.request-card h2 {
+    margin-bottom: 20px;
+}
+
+.request-card p {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.request-pending {
+    font-weight: bold;
+}
+
+.request-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.accept-btn,
+.reject-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.accept-btn {
+    background-color: #16a34a;
+}
+
+.reject-btn {
+    background-color: #dc2626;
+}
+
+
+/* Consultation Page */
+
+.consultation-section {
+    min-height: 700px;
+    padding: 50px 8%;
+}
+
+.consultation-box {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.consultation-box h1 {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.consultation-description {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.consultation-info {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.consultation-info p {
+    margin-bottom: 10px;
+}
+
+.consultation-info p:last-child {
+    margin-bottom: 0;
+}
+
+.consultation-area {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.video-box,
+.chat-box {
+    flex: 1;
+    min-width: 300px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.video-box {
+    text-align: center;
+}
+
+.video-icon {
+    font-size: 70px;
+    margin: 40px 0 20px;
+}
+
+.video-box p {
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.start-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.chat-box h2 {
+    margin-bottom: 20px;
+}
+
+.chat-messages {
+    height: 250px;
+    padding: 15px;
+    background-color: #f5f8fc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.chat-input button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Profile - Online Health Consultation</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            HealthCare
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="docto-dashboard.html">Dashboard</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- Doctor Profile -->
+
+    <section class="doctor-profile-section">
+
+        <div class="doctor-profile-box">
+
+            <div class="doctor-profile-image">
+                👨‍⚕️
+            </div>
+
+            <h1 id="doctorName">Loading...</h1>
+
+            <h2 id="doctorSpecialization">Loading...</h2>
+
+
+            <!-- Doctor Profile Information -->
+
+            <div class="doctor-profile-info">
+
+                <p>
+                    <strong>Experience:</strong>
+                    <span id="doctorExperience">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Consultation Fee:</strong>
+                    ₹<span id="doctorFee">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Qualification:</strong>
+                    <span id="doctorQualification">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Availability:</strong>
+                    <span id="doctorAvailability">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    <span id="doctorEmail">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Phone:</strong>
+                    <span id="doctorPhone">Loading...</span>
+                </p>
+
+                <p>
+                    <strong>Consultation Type:</strong>
+                    Online
+                </p>
+
+            </div>
+
+
+            <!-- Doctor Edit Profile -->
+
+            <div class="doctor-edit-profile">
+
+                <h2>Update Doctor Profile</h2>
+
+                <form id="doctorProfileForm">
+
+                    <label for="specialization">
+                        Specialization
+                    </label>
+
+                    <input
+                        type="text"
+                        id="specialization"
+                        placeholder="Example: Cardiologist"
+                        required
+                    >
+
+
+                    <label for="experience">
+                        Experience
+                    </label>
+
+                    <input
+                        type="text"
+                        id="experience"
+                        placeholder="Example: 5 Years"
+                        required
+                    >
+
+
+                    <label for="qualification">
+                        Qualification
+                    </label>
+
+                    <input
+                        type="text"
+                        id="qualification"
+                        placeholder="Example: MBBS, MD"
+                        required
+                    >
+
+
+                    <label for="consultationFee">
+                        Consultation Fee
+                    </label>
+
+                    <input
+                        type="text"
+                        id="consultationFee"
+                        placeholder="Example: 500"
+                        required
+                    >
+
+
+                    <label for="availability">
+                        Availability
+                    </label>
+
+                    <input
+                        type="text"
+                        id="availability"
+                        placeholder="Example: 10 AM - 5 PM"
+                        required
+                    >
+
+
+                    <button type="submit">
+                        Save Profile
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <a href="appointment.html"
+               id="bookAppointmentBtn"
+               class="btn">
+
+                Book Appointment
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 Online Health Consultation
+        </p>
+
+    </footer>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

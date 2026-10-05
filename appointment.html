@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Appointment - Online Health Consultation</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            HealthCare
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="doctors.html">Doctors</a></li>
+            <li><a href="patient-dashboard.html">Dashboard</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- Appointment Section -->
+
+    <section class="appointment-section">
+
+        <div class="appointment-box">
+
+            <h1>Book Appointment</h1>
+
+            <p>
+                Schedule an appointment with your preferred doctor.
+            </p>
+
+
+            <form>
+
+                <label for="doctor">
+                    Select Doctor
+                </label>
+
+                <select id="doctor" required>
+                    <option value="">Loading doctors...</option>
+                </select>
+
+                <label for="date">
+                    Appointment Date
+                </label>
+
+                <input type="date" id="date" required>
+
+
+                <label for="time">
+                    Appointment Time
+                </label>
+
+                <input type="time" id="time" required>
+
+
+                <label for="reason">
+                    Reason for Consultation
+                </label>
+
+                <textarea id="reason" rows="4" placeholder="Enter reason for consultation" required></textarea>
+
+
+                <button type="submit">
+                    Book Appointment
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 Online Health Consultation
+        </p>
+
+    </footer>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
